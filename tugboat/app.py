@@ -19,7 +19,6 @@ def create_app():
     app.url_map.strict_slashes = False
 
     # Load config and logging
-    Consul(app)  # load_config expects consul to be registered
     load_config(app)
     logging.config.dictConfig(
         app.config['TUGBOAT_LOGGING']

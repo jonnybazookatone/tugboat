@@ -4,6 +4,10 @@ Configuration file. Please prefix application specific config values with
 the application name.
 """
 
+# Service URLs
+
+VAULT_QUERY_URL = 'https://devapi.adsabs.harvard.edu/v1/vault/store-query'
+
 # Log settings
 TUGBOAT_LOGGING = {
     'version': 1,

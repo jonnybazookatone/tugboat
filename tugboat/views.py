@@ -2,14 +2,13 @@
 """
 Views
 """
-import requests
-from requests.exceptions import ConnectionError
-from flask import current_app, render_template, make_response
-from flask.ext.restful import Resource
-from cache import cache
+import json
 
-MINUTES = 60.0  # seconds
-SYSTEMSGO_CACHE_TIMEOUT = 5*MINUTES
+from utils import get_post_data
+from client import client
+from flask import redirect, current_app, request, abort
+from flask.ext.restful import Resource
+
 
 class BumblebeeView(Resource):
     """
@@ -35,5 +34,35 @@ class BumblebeeView(Resource):
         :return: str
         """
 
-        # return redirect('', code=302)
-        return 200, 'blah'
+        # Setup the data
+        data = get_post_data(request)
+
+        if not isinstance(data, list):
+            abort(400)
+        elif not all([isinstance(i, unicode) for i in data]):
+            abort(400)
+
+        bigquery_data = {
+            'bigquery': data,
+            'q': ['*:*'],
+            'fq': ['{!bitset}']
+        }
+
+        # POST the query
+        # https://api.adsabs.harvard.edu/v1/vault/query
+        r = client().post(
+            current_app.config['VAULT_QUERY_URL'],
+            data=json.dumps(bigquery_data)
+        )
+
+        # Get back a query id
+        query_id = r.json()['qid']
+
+        # Formulate the url based on the query id
+        redirect_url = '{BBB_URL}/#search/q=*%3A*&__qid={query_id}'.format(
+            BBB_URL=current_app.config['BUMBLEBEE_URL'],
+            query_id=query_id
+        )
+
+        # Return the query id to the user
+        return redirect(redirect_url, code=302)
