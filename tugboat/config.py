@@ -6,7 +6,7 @@ the application name.
 
 # Service URLs
 
-VAULT_QUERY_URL = 'https://devapi.adsabs.harvard.edu/v1/vault/store-query'
+VAULT_QUERY_URL = 'https://devapi.adsabs.harvard.edu/v1/vault/query'
 
 # Log settings
 TUGBOAT_LOGGING = {

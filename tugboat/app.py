@@ -24,11 +24,9 @@ def create_app():
         app.config['TUGBOAT_LOGGING']
     )
 
-    # Register extensions
-    api = Api(app)
-
     # Add end points
-    api.add_resource(BumblebeeView, '/')
+    api = Api(app)
+    api.add_resource(BumblebeeView, '/redirect')
 
     return app
 
@@ -44,9 +42,11 @@ def load_config(app):
     """
 
     app.config.from_pyfile('config.py')
+    app.logger.info('Loaded generic config.py')
 
     try:
         app.config.from_pyfile('local_config.py')
+        app.logger.info('Loaded local_config.py')
     except IOError:
         app.logger.warning('Could not load local_config.py')
 

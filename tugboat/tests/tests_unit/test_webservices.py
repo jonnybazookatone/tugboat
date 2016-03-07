@@ -6,7 +6,7 @@ Test webservices
 import sys
 import os
 PROJECT_HOME = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../../'))
+    os.path.join(os.path.dirname(__file__), '../../../'))
 sys.path.append(PROJECT_HOME)
 
 import json
@@ -84,7 +84,7 @@ class TestBumblebeeView(TestCase):
         with HTTMock(vault_500):
             r = self.client.post(url, data=json.dumps(bibcodes))
 
-        self.assertStatus(r, 400)
+        self.assertStatus(r, 500)
 
 
 if __name__ == '__main__':
