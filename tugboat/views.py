@@ -2,12 +2,24 @@
 """
 Views
 """
-import json
 
 from utils import get_post_data
 from client import client
 from flask import redirect, current_app, request, abort
 from flask.ext.restful import Resource
+
+
+class IndexView(Resource):
+    """
+    Return the index page. This is temporary until the app is deployed on its
+    own instance.
+    """
+    def get(self):
+        """
+        HTTP GET request
+        :return: index html page
+        """
+        return current_app.send_static_file('index.html')
 
 
 class BumblebeeView(Resource):
@@ -35,12 +47,12 @@ class BumblebeeView(Resource):
         """
 
         # Setup the data
-        current_app.logger.info('Received data')
+        current_app.logger.info('Received data, headers: {}'.format(request.headers))
         data = get_post_data(request)
 
         if not isinstance(data, list):
             current_app.logger.error(
-                'User passed incorrect format: {}'.format(type(data))
+                'User passed incorrect format: {}, {}'.format(type(data), data)
             )
             abort(400)
         elif not all([isinstance(i, unicode) for i in data]):
@@ -83,4 +95,4 @@ class BumblebeeView(Resource):
         )
 
         # Return the query id to the user
-        return redirect(redirect_url, code=302)
+        return {'redirect': redirect_url}, 200
