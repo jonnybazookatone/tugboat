@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.1.min.js"></script>
+
+    <title>Tugboat Test index</title>
+  </head>
+
+  <body>
+    <h2>Test Button</h2>
+
+    <form id="form" action="submit" method="post" name="submit">
+      <textarea form="form" rows="4" cols="50" name="mytextarea">2015arXiv150701293E
+2015A&C....10...61E</textarea>
+
+      <input type="submit" value="submit" class="submit" />
+    </form>
+
+  </body>
+
+  <script type="text/javascript" charset="utf-8">
+    $(function(){
+
+
+      $('form').submit(function(){
+
+        bibcodes = $('textarea').val().replace(/[ \t]/g, '').split('\n');
+        console.log(bibcodes);
+        $.ajax({
+          type: 'POST',
+          url: 'redirect',
+          data: JSON.stringify(bibcodes),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data, textStatus) {
+            if (data.redirect) {
+               // data.redirect contains the string URL to redirect to
+              window.location.href = data.redirect;
+            } else {
+              console.error('Redirect failed' + data);
+            }
+          }
+        });
+        return false;
+      });
+    })
+  </script>
+</html>
+

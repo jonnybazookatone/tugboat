@@ -4,7 +4,7 @@ Application factory
 """
 
 import logging.config
-from views import BumblebeeView
+from views import BumblebeeView, IndexView
 from flask import Flask
 from flask.ext.restful import Api
 
@@ -26,6 +26,7 @@ def create_app():
 
     # Add end points
     api = Api(app)
+    api.add_resource(IndexView, '/index')
     api.add_resource(BumblebeeView, '/redirect')
 
     return app

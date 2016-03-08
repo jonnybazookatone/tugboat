@@ -45,7 +45,6 @@ class TestBumblebeeView(TestCase):
         """
         app_ = create_app()
         app_.config['VAULT_QUERY_URL'] = 'http://fakeapi.query'
-        app_.config['VAULT_SEARCH_URL'] = 'http://fakeapi.search'
         app_.config['BUMBLEBEE_URL'] = 'http://bumblebee.adsabs.harvard.edu'
         return app_
 
@@ -60,9 +59,9 @@ class TestBumblebeeView(TestCase):
         with HTTMock(store_200):
             r = self.client.post(url, data=json.dumps(bibcodes))
 
-        self.assertStatus(r, 302)
+        self.assertStatus(r, 200)
         self.assertEqual(
-            r.location,
+            r.json['redirect'],
             'http://bumblebee.adsabs.harvard.edu/#search/q=*%3A*&__qid=adsf1234'
         )
 

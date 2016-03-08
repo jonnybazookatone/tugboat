@@ -4,3 +4,4 @@ Flask-Testing==0.4.2
 gunicorn==0.17.4
 httmock==1.2.5
 coveralls==0.5
+selenium==2.52.0
