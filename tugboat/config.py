@@ -4,8 +4,10 @@ Configuration file. Please prefix application specific config values with
 the application name.
 """
 
-# Service URLs
+# Tokens
+HARBOUR_CLIENT_ADSWS_API_TOKEN = 'TOKEN'
 
+# Service URLs
 VAULT_QUERY_URL = 'https://devapi.adsabs.harvard.edu/v1/vault/query'
 
 # Log settings
