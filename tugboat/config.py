@@ -3,6 +3,7 @@
 Configuration file. Please prefix application specific config values with
 the application name.
 """
+import os
 
 # Tokens
 HARBOUR_CLIENT_ADSWS_API_TOKEN = os.getenv('API_DEV_KEY', '')
