@@ -9,7 +9,14 @@ import os
 HARBOUR_CLIENT_ADSWS_API_TOKEN = os.getenv('API_DEV_KEY', '')
 
 # Service URLs
-VAULT_QUERY_URL = 'https://devapi.adsabs.harvard.edu/v1/vault/query'
+environment = os.getenv('ENVIRONMENT', 'dev')
+
+VAULT_QUERY_URL = 'https://api.adsabs.harvard.edu/v1/vault/query'
+BUMBLEBEE_URL = 'https://ui.adsabs.harvard.edu'
+
+if environment == 'dev':
+  VAULT_QUERY_URL.replace('api', 'devapi')
+  BUMBLEBEE_URL.replace('api', 'devapi')
 
 # Log settings
 TUGBOAT_LOGGING = {
