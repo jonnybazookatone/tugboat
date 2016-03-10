@@ -5,7 +5,7 @@ the application name.
 """
 
 # Tokens
-HARBOUR_CLIENT_ADSWS_API_TOKEN = 'TOKEN'
+HARBOUR_CLIENT_ADSWS_API_TOKEN = os.getenv('API_DEV_KEY', '')
 
 # Service URLs
 VAULT_QUERY_URL = 'https://devapi.adsabs.harvard.edu/v1/vault/query'
