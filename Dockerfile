@@ -6,7 +6,7 @@ RUN pip install --upgrade pip gunicorn requests
 
 WORKDIR /app
 RUN git clone https://github.com/adsabs/tugboat.git /app
-RUN git checkout v1.0.1
+RUN git checkout v1.0.2
 RUN pip install -r requirements.txt
 
 COPY resources/gunicorn.conf.py /app/gunicorn.conf.py
