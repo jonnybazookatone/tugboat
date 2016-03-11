@@ -6,6 +6,7 @@ Application factory
 import logging.config
 from views import BumblebeeView, IndexView
 from flask import Flask
+from flask.ext.cors import CORS
 from flask.ext.restful import Api
 
 
@@ -22,6 +23,14 @@ def create_app():
     load_config(app)
     logging.config.dictConfig(
         app.config['TUGBOAT_LOGGING']
+    )
+
+    # CORS
+    CORS(
+        app,
+        resource={
+            r'/redirect': {'origins': app.config['TUGBOAT_CORS']}
+        }
     )
 
     # Add end points
