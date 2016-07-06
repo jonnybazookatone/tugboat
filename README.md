@@ -31,7 +31,7 @@ nosetests tugboat/tests/
 
 Manually build
 ```bash
-$ more build
+$ more build.sh
 #!/bin/bash
 
 docker stop tuboat
